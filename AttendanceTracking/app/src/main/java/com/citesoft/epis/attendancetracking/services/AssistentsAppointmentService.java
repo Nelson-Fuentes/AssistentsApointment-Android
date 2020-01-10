@@ -1,4 +1,5 @@
 package com.citesoft.epis.attendancetracking.services;
+import com.citesoft.epis.attendancetracking.login.LogUser;
 import com.citesoft.epis.attendancetracking.models.ClassRooms;
 import com.citesoft.epis.attendancetracking.models.Session;
 
@@ -8,11 +9,13 @@ import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.Header;
+import retrofit2.http.Headers;
 import retrofit2.http.POST;
 
 public interface AssistentsAppointmentService {
     @GET("classroom/")
-    public Call<ArrayList<ClassRooms>> getClassRooms();
+    public Call<ArrayList<ClassRooms>> getClassRooms(@Header("Authorization") String _token);
 
     @POST("auth/")
     @FormUrlEncoded

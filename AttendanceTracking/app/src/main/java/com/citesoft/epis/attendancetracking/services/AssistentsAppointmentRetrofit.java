@@ -1,5 +1,6 @@
 package com.citesoft.epis.attendancetracking.services;
 
+import com.citesoft.epis.attendancetracking.login.LogUser;
 import com.citesoft.epis.attendancetracking.models.ClassRooms;
 import com.citesoft.epis.attendancetracking.models.Session;
 
@@ -26,7 +27,7 @@ public class AssistentsAppointmentRetrofit {
     }
 
     public Call<ArrayList<ClassRooms>> getClassRooms(){
-        return service.getClassRooms();
+        return service.getClassRooms("token " + LogUser.currentLogUser.getSession().getToken());
     }
 
     public Call<Session> login(String _username, String _password) {

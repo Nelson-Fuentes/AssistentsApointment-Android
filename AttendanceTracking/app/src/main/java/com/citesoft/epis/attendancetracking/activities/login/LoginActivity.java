@@ -1,8 +1,6 @@
 package com.citesoft.epis.attendancetracking.activities.login;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -44,7 +42,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onResponse(Call<Session> call, Response<Session> response) {
                 if (response.isSuccessful()){
                     Session session = response.body();
-                    logUser.login(session.getToken());
+                    LogUser.currentLogUser.login(session.getToken());
                     startActivityForResult(intent, 0);
                     finish();
                 } else {

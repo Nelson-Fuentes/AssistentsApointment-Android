@@ -2,7 +2,6 @@ package com.citesoft.epis.attendancetracking;
 
 import android.Manifest;
 import android.bluetooth.BluetoothAdapter;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.RemoteException;
@@ -22,13 +21,10 @@ import android.view.View;
 
 import android.widget.Button;
 
-import com.citesoft.epis.attendancetracking.activities.login.LoginActivity;
 import com.citesoft.epis.attendancetracking.activities.attendance.AttendanceFragment;
 import com.citesoft.epis.attendancetracking.activities.classrooms.ClassRoomFragment;
 import com.citesoft.epis.attendancetracking.activities.settings.SettingsFragment;
 import com.citesoft.epis.attendancetracking.login.LogUser;
-import com.citesoft.epis.attendancetracking.preferences.Preferences;
-import com.citesoft.epis.attendancetracking.toast.ShowToast;
 
 import org.altbeacon.beacon.Beacon;
 import org.altbeacon.beacon.BeaconConsumer;
@@ -63,8 +59,8 @@ public class MainActivity extends AppCompatActivity  implements BeaconConsumer, 
         beaconDetector = new BeaconDetector(this);
         //this.startDetection();
 
-        (new LogUser(this)).validatelog();
-
+        LogUser.currentLogUser = new LogUser(this);
+        LogUser.currentLogUser.validatelog();
 
 
        /* Intent intent = new Intent (this, LoginActivity.class);
