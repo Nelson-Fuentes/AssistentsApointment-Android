@@ -24,4 +24,6 @@
     <string name="Password">Password</string>
     <string name="Login">Login</string>
     <string name="password_char">*</string>
+    <string name="no_internet_conection">No Internet Conection</string>
+    <string name="bad_user">Wrong Username or Password</string>
 </resources>

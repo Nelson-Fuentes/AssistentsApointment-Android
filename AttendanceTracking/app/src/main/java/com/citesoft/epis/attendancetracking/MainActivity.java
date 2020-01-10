@@ -26,6 +26,9 @@ import com.citesoft.epis.attendancetracking.activities.login.LoginActivity;
 import com.citesoft.epis.attendancetracking.activities.attendance.AttendanceFragment;
 import com.citesoft.epis.attendancetracking.activities.classrooms.ClassRoomFragment;
 import com.citesoft.epis.attendancetracking.activities.settings.SettingsFragment;
+import com.citesoft.epis.attendancetracking.login.LogUser;
+import com.citesoft.epis.attendancetracking.preferences.Preferences;
+import com.citesoft.epis.attendancetracking.toast.ShowToast;
 
 import org.altbeacon.beacon.Beacon;
 import org.altbeacon.beacon.BeaconConsumer;
@@ -57,13 +60,16 @@ public class MainActivity extends AppCompatActivity  implements BeaconConsumer, 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
 
-
         beaconDetector = new BeaconDetector(this);
         //this.startDetection();
 
-        Intent intent = new Intent (this, LoginActivity.class);
+        (new LogUser(this)).validatelog();
+
+
+
+       /* Intent intent = new Intent (this, LoginActivity.class);
         startActivityForResult(intent, 0);
-        this.finish();
+        this.finish();*/
 
     }
 

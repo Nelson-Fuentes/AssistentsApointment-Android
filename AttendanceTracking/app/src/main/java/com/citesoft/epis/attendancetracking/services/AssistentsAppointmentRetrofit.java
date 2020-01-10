@@ -1,6 +1,7 @@
 package com.citesoft.epis.attendancetracking.services;
 
 import com.citesoft.epis.attendancetracking.models.ClassRooms;
+import com.citesoft.epis.attendancetracking.models.Session;
 
 import java.util.ArrayList;
 
@@ -26,6 +27,10 @@ public class AssistentsAppointmentRetrofit {
 
     public Call<ArrayList<ClassRooms>> getClassRooms(){
         return service.getClassRooms();
+    }
+
+    public Call<Session> login(String _username, String _password) {
+        return this.service.login(_username, _password);
     }
 
 }

@@ -10,7 +10,10 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.login.LoginActivity"></activity>
+        <activity android:name=".activities.login.Prueba">
+
+        </activity>
+        <activity android:name=".activities.login.LoginActivity" />
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
@@ -20,6 +23,7 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
     </application>
 
