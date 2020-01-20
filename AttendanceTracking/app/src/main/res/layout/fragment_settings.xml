@@ -11,21 +11,24 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="55dp"
+            android:layout_marginTop="5dp"
             android:padding="15dp"
             android:orientation="vertical">
 
+
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:textColorHint="@color/colorAccent">
 
-                <EditText
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/dni"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/name"
-                    android:hint="Name"
-                    android:inputType="textPersonName"
-                    android:layout_marginBottom="20dp"/>
+                    android:layout_marginBottom="20dp"
+                    android:hint="@string/DNI"
+                    android:inputType="number" />
+
 
             </android.support.design.widget.TextInputLayout>
 
@@ -33,13 +36,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <EditText
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/last_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/lastname"
-                    android:hint="Lastname"
-                    android:inputType="textPersonName"
-                    android:layout_marginBottom="20dp"/>
+                    android:layout_marginBottom="20dp"
+                    android:hint="@string/last_name"
+                    android:inputType="text"
+                    android:textColorHint="@color/colorAccent" />
 
             </android.support.design.widget.TextInputLayout>
 
@@ -47,23 +51,56 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <EditText
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/first_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/serverIp"
-                    android:hint="127.0.0.1"
-                    android:inputType="textPersonName"
-                    android:layout_marginBottom="20dp"/>
+                    android:layout_marginBottom="20dp"
+                    android:hint="@string/first_name"
+                    android:inputType="text"
+                    android:textColorHint="@color/colorAccent" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/email"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+                    android:hint="@string/email"
+                    android:inputType="textEmailAddress"
+                    android:textColorHint="@color/colorAccent" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/phone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+                    android:hint="@string/phone"
+                    android:inputType="phone"
+                    android:textColorHint="@color/colorAccent" />
+
 
             </android.support.design.widget.TextInputLayout>
 
             <Button
+                android:id="@+id/saveBtn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Guardar"
-                android:id="@+id/saveBtn"
                 android:background="@color/colorPrimary"
-                android:textColor="#FFF"/>
+                android:onClick="saveUser"
+                android:text="Guardar"
+                android:textColor="#FFF" />
 
         </LinearLayout>
 

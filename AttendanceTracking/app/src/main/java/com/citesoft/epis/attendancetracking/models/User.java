@@ -6,35 +6,31 @@ package com.citesoft.epis.attendancetracking.models;
 
 public class User {
 
-    private int id;
     private String dni;
-    private String name;
-    private String lastname;
+    private String first_name;
+    private String last_name;
     private String email;
     private String phone;
 
     public User() {
     }
 
-    public User(int id, String dni, String name, String lastname, String email, String phone) {
-        this.id = id;
+    public User(int id, String dni, String first_name, String last_name, String email, String phone) {
         this.dni = dni;
-        this.name = name;
-        this.lastname = lastname;
+        this.first_name = first_name;
+        this.last_name = last_name;
         this.email = email;
         this.phone = phone;
     }
-    
+
     public void setDni(String dni) {
         this.dni = dni;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+    public void setFirstName(String first_name) { this.first_name = first_name; }
 
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
+    public void setLastname(String last_name) {
+        this.last_name = last_name;
     }
 
     public void setEmail(String email) {
@@ -45,27 +41,24 @@ public class User {
         this.phone = phone;
     }
 
-    public int getId() {
-        return id;
-    }
-
     public String getDni() {
-        return dni;
+        return this.dni;
     }
 
-    public String getName() {
-        return name;
+    public String getFirstName() {
+        return this.first_name;
     }
 
     public String getLastname() {
-        return lastname;
+        return this.last_name;
     }
 
     public String getEmail() {
-        return email;
+        return this.email;
     }
 
     public String getPhone() {
-        return phone;
+        return this.phone;
     }
+
 }

@@ -26,4 +26,10 @@
     <string name="password_char">*</string>
     <string name="no_internet_conection">No Internet Conection</string>
     <string name="bad_user">Wrong Username or Password</string>
+    <string name="DNI">D.N.I.</string>
+    <string name="last_name">Last Name</string>
+    <string name="first_name">First Name</string>
+    <string name="email">E-Mail</string>
+    <string name="phone">Phone</string>
+    <string name="save_sucessfully">Data\'s been saved successfully</string>
 </resources>
