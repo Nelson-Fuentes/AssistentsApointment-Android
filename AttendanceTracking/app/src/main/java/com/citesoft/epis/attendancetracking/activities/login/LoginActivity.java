@@ -10,7 +10,7 @@ import com.citesoft.epis.attendancetracking.MainActivity;
 import com.citesoft.epis.attendancetracking.R;
 import com.citesoft.epis.attendancetracking.login.LogUser;
 import com.citesoft.epis.attendancetracking.models.Session;
-import com.citesoft.epis.attendancetracking.services.AssistentsAppointmentRetrofit;
+import com.citesoft.epis.attendancetracking.services.attendanceTracking.AttendanceTrackingRetrofit;
 import com.citesoft.epis.attendancetracking.toast.ShowToast;
 
 import retrofit2.Call;
@@ -19,7 +19,7 @@ import retrofit2.Response;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private AssistentsAppointmentRetrofit retrofit;
+    private AttendanceTrackingRetrofit retrofit;
     private LogUser logUser;
     private Intent intent;
 
@@ -28,7 +28,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         this.getSupportActionBar().hide();
         setContentView(R.layout.login);
-        this.retrofit = new AssistentsAppointmentRetrofit();
+        this.retrofit = new AttendanceTrackingRetrofit();
         return;
     }
 

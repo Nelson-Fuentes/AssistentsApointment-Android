@@ -1,9 +1,7 @@
 package com.citesoft.epis.attendancetracking.activities.settings;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,10 +10,8 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.citesoft.epis.attendancetracking.R;
-import com.citesoft.epis.attendancetracking.login.LogUser;
-import com.citesoft.epis.attendancetracking.models.Session;
 import com.citesoft.epis.attendancetracking.models.User;
-import com.citesoft.epis.attendancetracking.services.AssistentsAppointmentRetrofit;
+import com.citesoft.epis.attendancetracking.services.attendanceTracking.AttendanceTrackingRetrofit;
 import com.citesoft.epis.attendancetracking.toast.ShowToast;
 
 import java.io.IOException;
@@ -30,7 +26,7 @@ import retrofit2.Response;
 
 public class SettingsFragment extends Fragment {
 
-    private AssistentsAppointmentRetrofit retrofit;
+    private AttendanceTrackingRetrofit retrofit;
     private EditText dni;
     private EditText first_name;
     private EditText last_name;
@@ -63,7 +59,7 @@ public class SettingsFragment extends Fragment {
         });
 
 
-        this.retrofit = new AssistentsAppointmentRetrofit();
+        this.retrofit = new AttendanceTrackingRetrofit();
         this.retrofit.getCurrentUser().enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {

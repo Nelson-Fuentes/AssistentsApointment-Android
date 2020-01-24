@@ -5,23 +5,19 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import com.citesoft.epis.attendancetracking.R;
 import com.citesoft.epis.attendancetracking.models.ClassRooms;
-import com.citesoft.epis.attendancetracking.services.AssistentsAppointmentRetrofit;
+import com.citesoft.epis.attendancetracking.services.attendanceTracking.AttendanceTrackingRetrofit;
 
 import java.util.ArrayList;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
 
 
 /**
@@ -30,7 +26,7 @@ import retrofit2.Retrofit;
 
 public class ClassRoomFragment extends Fragment {
 
-    private AssistentsAppointmentRetrofit retrofit;
+    private AttendanceTrackingRetrofit retrofit;
 
     private RecyclerView recyclerView;
     private ClassRoomListAdapter classRoomListAdapter;
@@ -56,7 +52,7 @@ public class ClassRoomFragment extends Fragment {
 
 
 
-        this.retrofit = new AssistentsAppointmentRetrofit();
+        this.retrofit = new AttendanceTrackingRetrofit();
         this.retrofit.getClassRooms().enqueue(new Callback<ArrayList<ClassRooms>>() {
             @Override
             public void onResponse(Call<ArrayList<ClassRooms>> call, Response<ArrayList<ClassRooms>> response) {
@@ -77,7 +73,4 @@ public class ClassRoomFragment extends Fragment {
         });
     }
 
-    private void getData(){
-
-    }
 }

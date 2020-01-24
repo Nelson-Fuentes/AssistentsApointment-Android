@@ -32,4 +32,9 @@
     <string name="email">E-Mail</string>
     <string name="phone">Phone</string>
     <string name="save_sucessfully">Data\'s been saved successfully</string>
+    <string name="error_localization">Excepción al obtener información de localización</string>
+    <string name="error_stop_beacon">Error Stopping Detections</string>
+    <string name="attendance_confirmation">Would do you want to enter in this ClassRoom</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
 </resources>

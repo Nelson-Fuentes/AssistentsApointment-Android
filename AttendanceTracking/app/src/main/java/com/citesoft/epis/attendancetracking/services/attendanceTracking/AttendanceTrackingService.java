@@ -1,4 +1,4 @@
-package com.citesoft.epis.attendancetracking.services;
+package com.citesoft.epis.attendancetracking.services.attendanceTracking;
 import com.citesoft.epis.attendancetracking.login.LogUser;
 import com.citesoft.epis.attendancetracking.models.ClassRooms;
 import com.citesoft.epis.attendancetracking.models.Session;
@@ -14,8 +14,9 @@ import retrofit2.http.Header;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
+import retrofit2.http.Path;
 
-public interface AssistentsAppointmentService {
+public interface AttendanceTrackingService {
     @GET("classroom/")
     public Call<ArrayList<ClassRooms>> getClassRooms(
             @Header("Authorization") String _token
@@ -43,6 +44,11 @@ public interface AssistentsAppointmentService {
             @Field("last_name") String _last_name,
             @Field("email") String _email,
             @Field("phone") String _phone
+    );
+
+    @GET("classroom/beacon/{pk}")
+    public Call<ClassRooms> getClasssRoomByBeacon(
+            @Path("pk") String _pk
     );
 
 

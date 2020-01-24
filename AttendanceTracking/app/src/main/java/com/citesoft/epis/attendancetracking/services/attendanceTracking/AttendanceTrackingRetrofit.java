@@ -1,4 +1,4 @@
-package com.citesoft.epis.attendancetracking.services;
+package com.citesoft.epis.attendancetracking.services.attendanceTracking;
 
 import com.citesoft.epis.attendancetracking.login.LogUser;
 import com.citesoft.epis.attendancetracking.models.ClassRooms;
@@ -11,17 +11,17 @@ import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class AssistentsAppointmentRetrofit {
+public class AttendanceTrackingRetrofit {
     Retrofit retrofit;
     String baseURL = "http://attendancetracking.herokuapp.com/api/";
-    AssistentsAppointmentService service;
+    AttendanceTrackingService service;
 
-    public AssistentsAppointmentRetrofit (){
+    public AttendanceTrackingRetrofit(){
         retrofit = new Retrofit.Builder()
                 .baseUrl(baseURL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
-        service = retrofit.create(AssistentsAppointmentService.class);
+        service = retrofit.create(AttendanceTrackingService.class);
     }
 
     public Call<ArrayList<ClassRooms>> getClassRooms(){
@@ -45,6 +45,10 @@ public class AssistentsAppointmentRetrofit {
                 user.getEmail(),
                 user.getPhone()
         );
+    }
+
+    public Call<ClassRooms> getClassRoomByBeacon(String _uuid){
+        return service.getClasssRoomByBeacon(_uuid);
     }
 
 }

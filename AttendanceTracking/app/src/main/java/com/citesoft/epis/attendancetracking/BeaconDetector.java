@@ -23,7 +23,7 @@ import org.altbeacon.beacon.Region;
 import java.util.ArrayList;
 
 public class BeaconDetector {
-    private MainActivity view;
+   /* private MainActivity view;
 
     public BeaconManager mBeaconManager;
     public ArrayList<Identifier> identifiers;
@@ -135,5 +135,5 @@ public class BeaconDetector {
         Toast toast = Toast.makeText(this.view, message, Toast.LENGTH_LONG);
         toast.setGravity(Gravity.CENTER, 0, 0);
         toast.show();
-    }
+    }*/
 }

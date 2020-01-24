@@ -19,7 +19,6 @@
             android:layout_weight="1"
             android:background="@color/colorPrimary"
             android:enabled="true"
-            android:onClick="startDetection"
             android:text="@string/start_button_text"
             android:textColor="@android:color/white" />
 
@@ -32,7 +31,6 @@
             android:alpha="0.5"
             android:background="@android:color/holo_red_light"
             android:enabled="false"
-            android:onClick="stopDetection"
             android:text="@string/stop_button_text"
             android:textColor="@android:color/white" />
     </LinearLayout>

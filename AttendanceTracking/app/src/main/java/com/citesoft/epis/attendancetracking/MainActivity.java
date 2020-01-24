@@ -33,7 +33,7 @@ import org.altbeacon.beacon.Region;
 
 import java.util.Collection;
 
-public class MainActivity extends AppCompatActivity  implements BeaconConsumer, RangeNotifier {
+public class MainActivity extends AppCompatActivity {
 
     private SectionsPagerAdapter mSectionsPagerAdapter;
 
@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity  implements BeaconConsumer, 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
 
-        beaconDetector = new BeaconDetector(this);
+      //  beaconDetector = new BeaconDetector(this);
         //this.startDetection();
 
         LogUser.currentLogUser = new LogUser(this);
@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity  implements BeaconConsumer, 
 
     }
 
-    public void startDetection(View _view){
+   /* public void startDetection(View _view){
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (this.checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                 beaconDetector.askForLocationPermissions();
@@ -130,7 +130,7 @@ public class MainActivity extends AppCompatActivity  implements BeaconConsumer, 
         for (Beacon beacon : beacons) {
             this.beaconDetector.showToastMessage(getString(R.string.beacon_detected, beacon.getId1())+" a una distancia de "+beacons.iterator().next().getDistance()+" metros.");
         }
-    }
+    }*/
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
