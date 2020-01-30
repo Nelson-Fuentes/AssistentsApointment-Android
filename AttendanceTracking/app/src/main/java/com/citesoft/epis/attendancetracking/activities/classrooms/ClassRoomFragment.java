@@ -58,7 +58,6 @@ public class ClassRoomFragment extends Fragment {
             public void onResponse(Call<ArrayList<ClassRooms>> call, Response<ArrayList<ClassRooms>> response) {
                 if (response.isSuccessful()){
                     ArrayList<ClassRooms> classRooms = response.body();
-                    System.out.println(classRooms);
                     classRoomListAdapter.addClassRooms(classRooms);
 
                 } else {

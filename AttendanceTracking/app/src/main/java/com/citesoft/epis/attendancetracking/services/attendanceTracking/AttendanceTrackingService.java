@@ -1,5 +1,6 @@
 package com.citesoft.epis.attendancetracking.services.attendanceTracking;
 import com.citesoft.epis.attendancetracking.login.LogUser;
+import com.citesoft.epis.attendancetracking.models.Attendance;
 import com.citesoft.epis.attendancetracking.models.ClassRooms;
 import com.citesoft.epis.attendancetracking.models.Session;
 import com.citesoft.epis.attendancetracking.models.User;
@@ -49,6 +50,11 @@ public interface AttendanceTrackingService {
     @GET("classroom/beacon/{pk}")
     public Call<ClassRooms> getClasssRoomByBeacon(
             @Path("pk") String _pk
+    );
+
+    @GET("attendance/close/")
+    public Call<ArrayList<Attendance>> getClosedAttendances(
+            @Header("Authorization") String _token
     );
 
 

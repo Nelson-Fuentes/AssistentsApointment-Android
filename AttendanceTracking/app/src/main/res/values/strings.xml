@@ -37,4 +37,8 @@
     <string name="attendance_confirmation">Would do you want to enter in this ClassRoom</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
+    <string name="entry_hour">Entry Hour</string>
+    <string name="exit_hour">Exit Hour</string>
+    <string name="date">Date</string>
+    <string name="classroom">Classroom</string>
 </resources>

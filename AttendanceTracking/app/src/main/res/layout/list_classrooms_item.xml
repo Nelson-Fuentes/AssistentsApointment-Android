@@ -15,7 +15,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/textViewHead"
+                android:id="@+id/assistance_classroom"
                 android:text="Citesoft"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
                 android:layout_width="match_parent"

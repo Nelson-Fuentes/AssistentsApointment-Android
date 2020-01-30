@@ -1,6 +1,7 @@
 package com.citesoft.epis.attendancetracking.services.attendanceTracking;
 
 import com.citesoft.epis.attendancetracking.login.LogUser;
+import com.citesoft.epis.attendancetracking.models.Attendance;
 import com.citesoft.epis.attendancetracking.models.ClassRooms;
 import com.citesoft.epis.attendancetracking.models.Session;
 import com.citesoft.epis.attendancetracking.models.User;
@@ -49,6 +50,12 @@ public class AttendanceTrackingRetrofit {
 
     public Call<ClassRooms> getClassRoomByBeacon(String _uuid){
         return service.getClasssRoomByBeacon(_uuid);
+    }
+
+    public Call<ArrayList<Attendance>> getClosedAttendance(){
+        return service.getClosedAttendances(
+                "token " + LogUser.currentLogUser.getSession().getToken()
+        );
     }
 
 }

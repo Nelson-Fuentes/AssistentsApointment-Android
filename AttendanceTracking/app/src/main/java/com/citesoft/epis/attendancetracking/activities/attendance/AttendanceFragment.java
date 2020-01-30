@@ -14,16 +14,20 @@ import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.citesoft.epis.attendancetracking.R;
+import com.citesoft.epis.attendancetracking.activities.classrooms.ClassRoomListAdapter;
 import com.citesoft.epis.attendancetracking.exceptions.BluetoothDisabledException;
 import com.citesoft.epis.attendancetracking.exceptions.BluetoothNullPointerException;
 import com.citesoft.epis.attendancetracking.exceptions.LocationException;
 import com.citesoft.epis.attendancetracking.exceptions.LocationPermissionException;
+import com.citesoft.epis.attendancetracking.models.Attendance;
 import com.citesoft.epis.attendancetracking.models.ClassRooms;
 import com.citesoft.epis.attendancetracking.services.attendanceTracking.AttendanceTrackingRetrofit;
 import com.citesoft.epis.attendancetracking.services.beaconDetector.BeaconDetectorService;
@@ -34,6 +38,8 @@ import org.altbeacon.beacon.BeaconConsumer;
 import org.altbeacon.beacon.RangeNotifier;
 import org.altbeacon.beacon.Region;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collection;
 
 import retrofit2.Call;
@@ -54,6 +60,9 @@ public class AttendanceFragment extends Fragment  implements BeaconConsumer, Ran
     private static final int REQUEST_ENABLE_BLUETOOTH = 1;
     private AttendanceTrackingRetrofit retrofit;
 
+    private ClosedAttendanceAdapter closedAttendanceAdapter;
+    private RecyclerView recyclerViewClosedAttendance;
+
 
     @Nullable
     @Override
@@ -65,6 +74,15 @@ public class AttendanceFragment extends Fragment  implements BeaconConsumer, Ran
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        this.closedAttendanceAdapter = new ClosedAttendanceAdapter();
+        this.recyclerViewClosedAttendance = (RecyclerView) this.getActivity().findViewById(R.id.attendance_close);
+        this.recyclerViewClosedAttendance.setHasFixedSize(true);
+        LinearLayoutManager linearLayout = new LinearLayoutManager(this.getActivity());
+        this.recyclerViewClosedAttendance.setLayoutManager(linearLayout);
+        this.recyclerViewClosedAttendance.setAdapter(closedAttendanceAdapter);
+
+
 
         this.startDetection = this.getActivity().findViewById(R.id.startReadingBeaconsButton);
         this.stopDetection = this.getActivity().findViewById(R.id.stopReadingBeaconsButton);
@@ -94,6 +112,34 @@ public class AttendanceFragment extends Fragment  implements BeaconConsumer, Ran
             }
         });
         this.retrofit = new AttendanceTrackingRetrofit();
+
+        this.retrofit.getClosedAttendance().enqueue(new Callback<ArrayList<Attendance>>() {
+            @Override
+            public void onResponse(Call<ArrayList<Attendance>> call, Response<ArrayList<Attendance>> response) {
+                if (response.isSuccessful()){
+
+                    ArrayList<Attendance> attendances = response.body();
+                    closedAttendanceAdapter.addAttendances(attendances);
+
+                } else {
+                    try {
+                        ShowToast.show(getActivity(), response.errorBody().string());
+                        System.out.println("/////////////////////////////////////////////////////////////////////////////////////");
+                    } catch (IOException e) {
+                        ShowToast.show(getActivity(), e.getMessage());
+                        System.out.println("222222222222222222222222222222222222222222222222222222222222222222222222222222");
+
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ArrayList<Attendance>> call, Throwable t) {
+                ShowToast.show(getActivity(), t.getMessage());
+                System.out.println(t.getMessage() +" ============================================================");
+            }
+        });
+
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -215,7 +261,7 @@ public class AttendanceFragment extends Fragment  implements BeaconConsumer, Ran
                         if (response.isSuccessful()) {
                             noContinue[0] = true;
                             ClassRooms classRooms = response.body();
-                            ShowToast.show(getActivity(), getString(R.string.beacon_detected, uuid) + " del salon " + classRooms.getName());
+                            //ShowToast.show(getActivity(), getString(R.string.beacon_detected, uuid) + " del salon " + classRooms.getName());
                             AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity());
                             dialog.setTitle(classRooms.getName());
                             dialog.setMessage(R.string.attendance_confirmation);
