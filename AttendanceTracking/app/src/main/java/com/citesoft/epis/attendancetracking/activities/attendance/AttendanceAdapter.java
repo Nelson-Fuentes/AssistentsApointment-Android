@@ -1,6 +1,5 @@
 package com.citesoft.epis.attendancetracking.activities.attendance;
 
-import android.location.Location;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,9 +7,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.citesoft.epis.attendancetracking.R;
-import com.citesoft.epis.attendancetracking.activities.classrooms.ClassRoomListAdapter;
 import com.citesoft.epis.attendancetracking.models.Attendance;
-import com.citesoft.epis.attendancetracking.models.ClassRooms;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -20,21 +17,23 @@ import java.util.Locale;
  * Created by harold on 2/7/18.
  */
 
-public class ClosedAttendanceAdapter extends RecyclerView.Adapter<ClosedAttendanceAdapter.ViewHolder> {
+public class AttendanceAdapter extends RecyclerView.Adapter<AttendanceAdapter.ViewHolder> {
 
 
+    private int idLayout;
     private ArrayList<Attendance> dataset;
 
 
-    public ClosedAttendanceAdapter (){
+    public AttendanceAdapter(int _idLayout){
         this.dataset = new ArrayList<Attendance>();
+        this.idLayout = _idLayout;
     }
 
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_attendance_item, parent, false);
-        return new ClosedAttendanceAdapter.ViewHolder(view);
+        View view = LayoutInflater.from(parent.getContext()).inflate(this.idLayout, parent, false);
+        return new AttendanceAdapter.ViewHolder(view);
     }
 
     @Override
@@ -56,6 +55,20 @@ public class ClosedAttendanceAdapter extends RecyclerView.Adapter<ClosedAttendan
     public void addAttendances(ArrayList<Attendance> attendances) {
         dataset.addAll(attendances);
         notifyDataSetChanged();
+    }
+
+    public void makeEmpty(){
+        this.dataset = new ArrayList<Attendance>();
+        notifyDataSetChanged();
+    }
+
+    public void addAttendance(int i, Attendance _attendance){
+        this.dataset.add(i, _attendance);
+        notifyDataSetChanged();
+    }
+
+    public void addAttendaceLast(Attendance _attendance){
+        this.addAttendance(this.dataset.size(), _attendance);
     }
 
 

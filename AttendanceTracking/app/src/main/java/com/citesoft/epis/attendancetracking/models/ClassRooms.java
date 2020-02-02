@@ -6,7 +6,7 @@ package com.citesoft.epis.attendancetracking.models;
 
 public class ClassRooms {
 
-    private int classRoomId;
+    private int id;
     private Beacon beacon;
     private String name;
     private int status;
@@ -15,14 +15,14 @@ public class ClassRooms {
     }
 
     public ClassRooms(int classRoomId, Beacon beacon, String name, int status) {
-        this.classRoomId = classRoomId;
+        this.id = classRoomId;
         this.beacon = beacon;
         this.name = name;
         this.status = status;
     }
 
-    public void setClassRoomId(int classRoomId) {
-        this.classRoomId = classRoomId;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public void setBeacon(Beacon beacon) {
@@ -37,8 +37,8 @@ public class ClassRooms {
         this.status = status;
     }
 
-    public int getClassRoomId() {
-        return classRoomId;
+    public int getId() {
+        return id;
     }
 
     public Beacon getBeacon() {

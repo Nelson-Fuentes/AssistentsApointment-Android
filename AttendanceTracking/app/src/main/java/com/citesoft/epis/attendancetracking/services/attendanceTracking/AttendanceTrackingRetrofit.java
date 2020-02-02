@@ -58,4 +58,23 @@ public class AttendanceTrackingRetrofit {
         );
     }
 
+    public Call<ArrayList<Attendance>> getOpenAttendance(){
+        return service.getOpenAttendances(
+                "token " + LogUser.currentLogUser.getSession().getToken()
+        );
+    }
+
+    public  Call<Attendance> takeAttendance(int _classroom){
+        return service.takeAttendance(
+                "token " + LogUser.currentLogUser.getSession().getToken(),
+                _classroom
+        );
+    }
+
+    public Call<ArrayList<Attendance>> closeAttendances (){
+        return  service.closeAttendance(
+                "token " + LogUser.currentLogUser.getSession().getToken()
+        );
+    }
+
 }

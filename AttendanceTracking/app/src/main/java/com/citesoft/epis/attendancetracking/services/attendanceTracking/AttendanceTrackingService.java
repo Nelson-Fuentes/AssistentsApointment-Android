@@ -58,4 +58,22 @@ public interface AttendanceTrackingService {
     );
 
 
+    @GET("attendance/open/")
+    public Call<ArrayList<Attendance>> getOpenAttendances(
+            @Header("Authorization") String _token
+    );
+
+    @POST("attendance/")
+    @FormUrlEncoded
+    public Call<Attendance> takeAttendance(
+            @Header("Authorization") String _token,
+            @Field("classroom") int _classroom
+    );
+
+    @POST("attendance/close/")
+    public Call<ArrayList<Attendance>> closeAttendance(
+            @Header("Authorization") String token
+    );
+
+
 }

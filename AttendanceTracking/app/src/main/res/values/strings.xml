@@ -41,4 +41,9 @@
     <string name="exit_hour">Exit Hour</string>
     <string name="date">Date</string>
     <string name="classroom">Classroom</string>
+    <string name="open">Open</string>
+    <string name="open_Session">Open Session</string>
+    <string name="notification_message">8 hours have passed. Would do you like close your session?</string>
+    <string name="close">Close</string>
+    <string name="attendance_closed">Attendance Closed</string>
 </resources>

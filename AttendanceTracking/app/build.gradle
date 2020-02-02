@@ -1,4 +1,5 @@
 //noinspection GradleCompatible
+//noinspection GradleCompatible
 apply plugin: 'com.android.application'
 
 android {
@@ -43,4 +44,5 @@ dependencies {
     implementation 'com.android.support.constraint:constraint-layout:1.1.3'
     implementation 'com.squareup.retrofit2:retrofit:2.1.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.1.0'
+    implementation "com.android.support:support-compat:26.1.0"
 }
