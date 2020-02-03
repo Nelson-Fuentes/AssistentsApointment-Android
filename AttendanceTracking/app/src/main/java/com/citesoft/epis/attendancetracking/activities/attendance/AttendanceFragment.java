@@ -27,6 +27,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.citesoft.epis.attendancetracking.BroadcastRecievers.BroadcastRecieverProgramNotitication;
 import com.citesoft.epis.attendancetracking.R;
 import com.citesoft.epis.attendancetracking.exceptions.BluetoothDisabledException;
 import com.citesoft.epis.attendancetracking.exceptions.BluetoothNullPointerException;
@@ -68,7 +69,6 @@ public class AttendanceFragment extends Fragment  implements BeaconConsumer, Ran
 
     private static final int PERMISSION_REQUEST_COARSE_LOCATION = 1;
     private static final int REQUEST_ENABLE_BLUETOOTH = 1;
-    private static final  String CHANNEL_ID = "NOTIFICACION";
     private AttendanceTrackingRetrofit retrofit;
 
     private AttendanceAdapter closedAttendanceAdapter;
@@ -325,10 +325,18 @@ public class AttendanceFragment extends Fragment  implements BeaconConsumer, Ran
                                                 Attendance attendance = response.body();
                                                 if (attendance.getExit()==null){
                                                     openAttendanceAdapter.addAttendaceLast(attendance);
+
+                                                    BroadcastRecieverProgramNotitication notitication = new BroadcastRecieverProgramNotitication();
+
+                                                    notitication.create(getApplicationContext());
+                                                    
+
+                                                    /*
                                                     Channel.makeChanel(CHANNEL_ID, getActivity());
                                                     NotificationCompat.Builder notification = new CloseNotification(getApplicationContext(), CHANNEL_ID);
                                                     NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(getApplicationContext());
                                                     notificationManagerCompat.notify(CloseNotification.NOTIFICATION_ID, notification.build());
+                                                    */
 
 
 

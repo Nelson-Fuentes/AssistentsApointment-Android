@@ -29,6 +29,10 @@
         <receiver
             android:name="com.citesoft.epis.attendancetracking.BroadcastRecievers.BroadcastRecieverCloseNotification"
             android:enabled="true" />
+
+        <receiver
+            android:name="com.citesoft.epis.attendancetracking.BroadcastRecievers.BroadcastRecieverProgramNotitication"
+            android:enabled="true" />
     </application>
 
 </manifest>
