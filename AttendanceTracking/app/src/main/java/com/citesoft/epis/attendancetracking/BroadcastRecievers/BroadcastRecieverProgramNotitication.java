@@ -16,6 +16,7 @@ public class BroadcastRecieverProgramNotitication  extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
+        System.out.println("=============================================================");
         Channel.makeChanel(CHANNEL_ID,context);
         NotificationCompat.Builder notification = new CloseNotification(context, CHANNEL_ID);
         NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(context);
@@ -28,7 +29,8 @@ public class BroadcastRecieverProgramNotitication  extends BroadcastReceiver {
         Intent i = new Intent(context, BroadcastRecieverProgramNotitication.class);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, i, 0);
         AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        long updateInterval = AlarmManager.INTERVAL_HOUR*8;
+        long updateInterval = AlarmManager.INTERVAL_FIFTEEN_MINUTES/AlarmManager.INTERVAL_FIFTEEN_MINUTES;
+
         am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + updateInterval, updateInterval, pendingIntent);
     }
 
