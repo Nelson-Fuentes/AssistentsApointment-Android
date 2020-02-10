@@ -1,10 +1,5 @@
 package com.citesoft.epis.attendancetracking;
 
-import android.Manifest;
-import android.bluetooth.BluetoothAdapter;
-import android.content.pm.PackageManager;
-import android.os.Build;
-import android.os.RemoteException;
 import android.support.design.widget.TabLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -17,21 +12,11 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-
-import android.widget.Button;
 
 import com.citesoft.epis.attendancetracking.activities.attendance.AttendanceFragment;
 import com.citesoft.epis.attendancetracking.activities.classrooms.ClassRoomFragment;
 import com.citesoft.epis.attendancetracking.activities.settings.SettingsFragment;
 import com.citesoft.epis.attendancetracking.login.LogUser;
-
-import org.altbeacon.beacon.Beacon;
-import org.altbeacon.beacon.BeaconConsumer;
-import org.altbeacon.beacon.RangeNotifier;
-import org.altbeacon.beacon.Region;
-
-import java.util.Collection;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -56,81 +41,12 @@ public class MainActivity extends AppCompatActivity {
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
 
-      //  beaconDetector = new BeaconDetector(this);
-        //this.startDetection();
 
         LogUser.currentLogUser = new LogUser(this);
         LogUser.currentLogUser.validatelog();
 
 
-       /* Intent intent = new Intent (this, LoginActivity.class);
-        startActivityForResult(intent, 0);
-        this.finish();*/
-
     }
-
-   /* public void startDetection(View _view){
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (this.checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                beaconDetector.askForLocationPermissions();
-
-
-            } else {
-                beaconDetector.prepareDetection();
-            }
-        } else {
-            beaconDetector.prepareDetection();
-        }
-    }
-
-    public Button getStartButton() {
-        return (Button) findViewById(R.id.startReadingBeaconsButton);
-    }
-
-    public Button getStopButton() {
-        return (Button) findViewById(R.id.stopReadingBeaconsButton);
-    }
-
-    public void stopDetection(View _view){
-        beaconDetector.stopDetectingBeacons();
-
-        BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
-
-        if (mBluetoothAdapter.isEnabled()) {
-            mBluetoothAdapter.disable();
-        }
-    }
-
-    @Override
-    public void onBeaconServiceConnect() {
-
-        try {
-            // Empezar a buscar los beacons que encajen con el el objeto Región pasado, incluyendo
-            // actualizaciones en la distancia estimada
-            this.beaconDetector.mBeaconManager.startRangingBeaconsInRegion(this.beaconDetector.mRegion);
-
-            this.beaconDetector.showToastMessage(getString(R.string.start_looking_for_beacons));
-
-        } catch (RemoteException e) {
-            this.beaconDetector.showToastMessage("Se ha producido una excepción al empezar a buscar beacons " + e.getMessage());
-
-        }
-
-        this.beaconDetector.mBeaconManager.addRangeNotifier(this);
-    }
-
-
-    @Override
-    public void didRangeBeaconsInRegion(Collection<Beacon> beacons, Region region) {
-
-        if (beacons.size() == 0) {
-            this.beaconDetector.showToastMessage(getString(R.string.no_beacons_detected));
-        }
-
-        for (Beacon beacon : beacons) {
-            this.beaconDetector.showToastMessage(getString(R.string.beacon_detected, beacon.getId1())+" a una distancia de "+beacons.iterator().next().getDistance()+" metros.");
-        }
-    }*/
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

@@ -9,6 +9,7 @@ import android.support.v4.app.NotificationCompat;
 
 import com.citesoft.epis.attendancetracking.BroadcastRecievers.BroadcastRecieverCloseNotification;
 import com.citesoft.epis.attendancetracking.R;
+import com.citesoft.epis.attendancetracking.services.app.services.CloseAttendanceService;
 
 public class CloseNotification extends NotificationCompat.Builder {
 
@@ -26,10 +27,11 @@ public class CloseNotification extends NotificationCompat.Builder {
         this.setDefaults(Notification.DEFAULT_SOUND);
         this.setOngoing(true);
 
-        Intent closeIntent = new Intent(context, BroadcastRecieverCloseNotification.class);
-        PendingIntent closePendingIntent = PendingIntent.getBroadcast(context, 0 , closeIntent, 0);
-        this.addAction(R.drawable.logo,context.getString(R.string.close) ,closePendingIntent);
-        
+
+        Intent service = new Intent(context, CloseAttendanceService.class);
+        PendingIntent closePendingService= PendingIntent.getService(context, 0, service, 0);
+        this.addAction(R.drawable.logo,context.getString(R.string.close), closePendingService);
+
     }
 
 }

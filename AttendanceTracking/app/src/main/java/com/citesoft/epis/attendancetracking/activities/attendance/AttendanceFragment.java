@@ -37,6 +37,7 @@ import com.citesoft.epis.attendancetracking.models.Attendance;
 import com.citesoft.epis.attendancetracking.models.ClassRooms;
 import com.citesoft.epis.attendancetracking.notifications.Channel;
 import com.citesoft.epis.attendancetracking.notifications.CloseNotification;
+import com.citesoft.epis.attendancetracking.services.app.services.ProgrammingCloseNotificationService;
 import com.citesoft.epis.attendancetracking.services.attendanceTracking.AttendanceTrackingRetrofit;
 import com.citesoft.epis.attendancetracking.services.beaconDetector.BeaconDetectorService;
 import com.citesoft.epis.attendancetracking.toast.ShowToast;
@@ -141,6 +142,46 @@ public class AttendanceFragment extends Fragment  implements BeaconConsumer, Ran
     }
 
 
+    @Override
+    public void onPause() {
+        stopDetection.callOnClick();
+        super.onPause();
+
+    }
+
+    @Override
+    public void onStop() {
+        stopDetection.callOnClick();
+        super.onStop();
+    }
+
+    @Override
+    public void onDestroy() {
+        stopDetection.callOnClick();
+
+        super.onDestroy();
+    }
+
+    @Override
+    public void onDestroyOptionsMenu() {
+        stopDetection.callOnClick();
+
+        super.onDestroyOptionsMenu();
+    }
+
+    @Override
+    public void onDestroyView() {
+        stopDetection.callOnClick();
+
+        super.onDestroyView();
+    }
+
+    @Override
+    public void onResume() {
+        updateAttendance();
+        super.onResume();
+    }
+
     private void updateAttendance (){
         this.retrofit.getClosedAttendance().enqueue(new Callback<ArrayList<Attendance>>() {
             @Override
@@ -148,6 +189,7 @@ public class AttendanceFragment extends Fragment  implements BeaconConsumer, Ran
                 if (response.isSuccessful()){
 
                     ArrayList<Attendance> attendances = response.body();
+                    closedAttendanceAdapter.makeEmpty();
                     closedAttendanceAdapter.addAttendances(attendances);
 
                 } else {
@@ -171,6 +213,8 @@ public class AttendanceFragment extends Fragment  implements BeaconConsumer, Ran
                 if (response.isSuccessful()){
 
                     ArrayList<Attendance> attendances = response.body();
+
+                    openAttendanceAdapter.makeEmpty();
                     openAttendanceAdapter.addAttendances(attendances);
 
                 } else {
@@ -327,19 +371,10 @@ public class AttendanceFragment extends Fragment  implements BeaconConsumer, Ran
                                                 Attendance attendance = response.body();
                                                 if (attendance.getExit()==null){
                                                     openAttendanceAdapter.addAttendaceLast(attendance);
-                                                    BroadcastRecieverProgramNotitication notitication = new BroadcastRecieverProgramNotitication();
-                                                    notitication.create(getApplicationContext());
-                                                    
 
 
-                                                   /* Channel.makeChanel(CHANNEL_ID, getActivity());
-                                                    NotificationCompat.Builder notification = new CloseNotification(getApplicationContext(), CHANNEL_ID);
-                                                    NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(getApplicationContext());
-                                                    notificationManagerCompat.notify(CloseNotification.NOTIFICATION_ID, notification.build());
-
-                                                    */
-
-
+                                                    Intent service = new Intent(getContext(), ProgrammingCloseNotificationService.class);
+                                                    getContext().startService(service);
 
 
                                                 } else {

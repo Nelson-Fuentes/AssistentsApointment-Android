@@ -28,11 +28,21 @@
 
         <receiver
             android:name="com.citesoft.epis.attendancetracking.BroadcastRecievers.BroadcastRecieverCloseNotification"
-            android:enabled="true" />
+            android:enabled="true" >
+            <intent-filter>
+                <action android:name="android.intent.action.RUN" />
+            </intent-filter>
+        </receiver>
 
         <receiver
             android:name="com.citesoft.epis.attendancetracking.BroadcastRecievers.BroadcastRecieverProgramNotitication"
-            android:enabled="true" />
+            android:enabled="true">
+
+        </receiver>
+
+
+        <service android:name="com.citesoft.epis.attendancetracking.services.app.services.CloseAttendanceService"></service>
+        <service android:name="com.citesoft.epis.attendancetracking.services.app.services.ProgrammingCloseNotificationService"></service>
     </application>
 
 </manifest>
