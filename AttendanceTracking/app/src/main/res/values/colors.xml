@@ -6,4 +6,5 @@
     <color name="colorPrimaryDarkLigth">#252F71</color>
     <color name="white">#FFFFFF</color>
     <color name="colorSecondary">#F1C40F</color>
+    <color name="background_experimental">#2F323E</color>
 </resources>

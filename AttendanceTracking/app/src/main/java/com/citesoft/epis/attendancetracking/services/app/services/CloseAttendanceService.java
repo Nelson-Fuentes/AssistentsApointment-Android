@@ -54,26 +54,14 @@ public class CloseAttendanceService extends Service {
                     }
 
                 } else  if (response.body().size()==0){
-                    notitication.cancel(getApplicationContext());
-                    Intent service1 = new Intent(getApplicationContext(), ProgrammingCloseNotificationService.class);
-                    getApplicationContext().stopService(service1);
-                    notitication.cancel(getApplicationContext());
+                    cancelServices();
                 } else {
                     retrofit.closeAttendances().enqueue(new Callback<ArrayList<Attendance>>() {
                         @Override
                         public void onResponse(Call<ArrayList<Attendance>> call, Response<ArrayList<Attendance>> response) {
                             if (response.isSuccessful()){
                                 ShowToast.show(getApplicationContext(), R.string.attendance_closed);
-                                NotificationManager notificationManager = ((NotificationManager)getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE));
-                                notificationManager.cancel(CloseNotification.NOTIFICATION_ID);
-                                notitication.cancel(getApplicationContext());
-                                Intent service1 = new Intent(getApplicationContext(), ProgrammingCloseNotificationService.class);
-                                getApplicationContext().stopService(service1);
-                                Intent service = new Intent(getApplicationContext(), CloseAttendanceService.class);
-                                getApplicationContext().stopService(service);
-
-
-                                AttendanceFragment view = new AttendanceFragment();
+                                cancelServices();
 
 
 
@@ -102,6 +90,17 @@ public class CloseAttendanceService extends Service {
                 ShowToast.show(getApplicationContext(), t.getMessage());
             }
         });
+
+    }
+
+    private  void cancelServices(){
+        NotificationManager notificationManager = ((NotificationManager)getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE));
+        notificationManager.cancel(CloseNotification.NOTIFICATION_ID);
+        notitication.cancel(getApplicationContext());
+        Intent service1 = new Intent(getApplicationContext(), ProgrammingCloseNotificationService.class);
+        getApplicationContext().stopService(service1);
+        Intent service = new Intent(getApplicationContext(), CloseAttendanceService.class);
+        getApplicationContext().stopService(service);
 
     }
 }

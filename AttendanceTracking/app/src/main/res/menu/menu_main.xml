@@ -9,8 +9,8 @@
         <!--app:showAsAction="never" />-->
 
     <item
-        android:id="@+id/action_profile"
+        android:id="@+id/action_logout"
         android:orderInCategory="100"
-        android:title="@string/action_profile"
+        android:title="@string/logout"
         app:showAsAction="never" />
 </menu>

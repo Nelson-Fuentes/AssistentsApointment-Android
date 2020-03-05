@@ -37,4 +37,8 @@ public class LogUser {
     public Session getSession (){
         return new Session((new Preferences(this.file, this.activity).read("token")));
     }
+
+    public void logout(){
+        (new Preferences(this.file, this.activity)).remove("token");
+    }
 }

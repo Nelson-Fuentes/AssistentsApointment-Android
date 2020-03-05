@@ -46,4 +46,5 @@
     <string name="notification_message">8 hours have passed. Would do you like close your session?</string>
     <string name="close">Close</string>
     <string name="attendance_closed">Attendance Closed</string>
+    <string name="logout">Log Out</string>
 </resources>

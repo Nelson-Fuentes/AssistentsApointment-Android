@@ -26,4 +26,10 @@ public class Preferences {
     public String read (String _key){
         return this.preferences.getString(_key, null);
     }
+
+    public void remove(String _key){
+        SharedPreferences.Editor editor = this.preferences.edit();
+        editor.remove(_key);
+        editor.commit();
+    }
 }

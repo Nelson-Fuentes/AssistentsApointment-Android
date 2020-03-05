@@ -1,5 +1,6 @@
 package com.citesoft.epis.attendancetracking;
 
+import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -28,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     protected void onCreate(Bundle savedInstanceState) {
+        setTheme(R.style.AppTheme_NoActionBar);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -58,9 +60,22 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        if (id == R.id.action_profile) {
-            return true;
+        switch (id){
+            case R.id.action_logout:
+                LogUser.currentLogUser.logout();
+                Intent intent = new Intent(this, MainActivity.class);
+                this.startActivity(intent);
+                this.finish();
+                break;
+
+                default:
+                    return super.onOptionsItemSelected(item);
         }
+
+        /*
+        if (id == R.id.action_logout) {
+            return true;
+        }*/
 
         return super.onOptionsItemSelected(item);
     }

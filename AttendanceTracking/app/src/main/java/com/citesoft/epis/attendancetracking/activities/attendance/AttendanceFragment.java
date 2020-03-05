@@ -380,6 +380,7 @@ public class AttendanceFragment extends Fragment  implements BeaconConsumer, Ran
                                                 } else {
                                                     openAttendanceAdapter.makeEmpty();
                                                     closedAttendanceAdapter.addAttendance(0, response.body());
+
                                                 }
 
                                             } else {
