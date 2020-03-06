@@ -4,8 +4,10 @@ import android.app.NotificationManager;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
+import android.util.Log;
 
 import com.citesoft.epis.attendancetracking.BroadcastRecievers.BroadcastRecieverProgramNotitication;
 import com.citesoft.epis.attendancetracking.MainActivity;
@@ -27,6 +29,7 @@ public class CloseAttendanceService extends Service {
 
     private AttendanceTrackingRetrofit retrofit;
     private BroadcastRecieverProgramNotitication notitication;
+    private String token;
 
     @Nullable
     @Override
@@ -35,61 +38,80 @@ public class CloseAttendanceService extends Service {
     }
 
     @Override
+    public void onStart(Intent intent, int startId) {
+        super.onStart(intent, startId);
+        Bundle extras = intent.getExtras();
+        if(extras == null)
+            Log.d("Service","null");
+        else
+        {
+            Log.d("Service","not null");
+            token = (String) extras.get("token");
+            Log.d("Service", token);
+
+            notitication = new BroadcastRecieverProgramNotitication();
+
+            retrofit = new AttendanceTrackingRetrofit();
+            retrofit.getClosedAttendance(this.token).enqueue(new Callback<ArrayList<Attendance>>() {
+                @Override
+                public void onResponse(Call<ArrayList<Attendance>> call, Response<ArrayList<Attendance>> response) {
+                    if (!response.isSuccessful()){
+                        try {
+                            ShowToast.show(getApplicationContext(), response.errorBody().string());
+                        } catch (IOException e) {
+                            ShowToast.show(getApplicationContext(), e.getMessage());
+                        }
+
+                    } else  if (response.body().size()==0){
+                        cancelServices();
+                    } else {
+                        retrofit.closeAttendances(token).enqueue(new Callback<ArrayList<Attendance>>() {
+                            @Override
+                            public void onResponse(Call<ArrayList<Attendance>> call, Response<ArrayList<Attendance>> response) {
+                                if (response.isSuccessful()){
+                                    ShowToast.show(getApplicationContext(), R.string.attendance_closed);
+                                    cancelServices();
+
+
+
+
+                                } else {
+                                    try {
+                                        ShowToast.show(getApplicationContext(), response.errorBody().string());
+                                    } catch (IOException e) {
+                                        ShowToast.show(getApplicationContext(), e.getMessage());
+                                    }
+
+                                }
+                            }
+
+                            @Override
+                            public void onFailure(Call<ArrayList<Attendance>> call, Throwable t) {
+                                ShowToast.show(getApplicationContext(), t.getMessage());
+
+                            }
+                        });
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ArrayList<Attendance>> call, Throwable t) {
+                    ShowToast.show(getApplicationContext(), t.getMessage());
+                }
+            });
+
+
+
+        }
+
+
+    }
+
+    @Override
     public void onCreate() {
 
 
 
-        notitication = new BroadcastRecieverProgramNotitication();
-
-        retrofit = new AttendanceTrackingRetrofit();
-
-        retrofit.getClosedAttendance().enqueue(new Callback<ArrayList<Attendance>>() {
-            @Override
-            public void onResponse(Call<ArrayList<Attendance>> call, Response<ArrayList<Attendance>> response) {
-                if (!response.isSuccessful()){
-                    try {
-                        ShowToast.show(getApplicationContext(), response.errorBody().string());
-                    } catch (IOException e) {
-                        ShowToast.show(getApplicationContext(), e.getMessage());
-                    }
-
-                } else  if (response.body().size()==0){
-                    cancelServices();
-                } else {
-                    retrofit.closeAttendances().enqueue(new Callback<ArrayList<Attendance>>() {
-                        @Override
-                        public void onResponse(Call<ArrayList<Attendance>> call, Response<ArrayList<Attendance>> response) {
-                            if (response.isSuccessful()){
-                                ShowToast.show(getApplicationContext(), R.string.attendance_closed);
-                                cancelServices();
-
-
-
-
-                            } else {
-                                try {
-                                    ShowToast.show(getApplicationContext(), response.errorBody().string());
-                                } catch (IOException e) {
-                                    ShowToast.show(getApplicationContext(), e.getMessage());
-                                }
-
-                            }
-                        }
-
-                        @Override
-                        public void onFailure(Call<ArrayList<Attendance>> call, Throwable t) {
-                            ShowToast.show(getApplicationContext(), t.getMessage());
-
-                        }
-                    });
-                }
-            }
-
-            @Override
-            public void onFailure(Call<ArrayList<Attendance>> call, Throwable t) {
-                ShowToast.show(getApplicationContext(), t.getMessage());
-            }
-        });
 
     }
 

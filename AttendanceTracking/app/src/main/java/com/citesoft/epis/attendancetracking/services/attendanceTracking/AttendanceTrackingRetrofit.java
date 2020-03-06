@@ -77,4 +77,16 @@ public class AttendanceTrackingRetrofit {
         );
     }
 
+    public Call<ArrayList<Attendance>> getClosedAttendance (String token){
+        return  service.closeAttendance(
+                "token " + token
+        );
+    }
+
+    public Call<ArrayList<Attendance>> closeAttendances (String token){
+        return  service.closeAttendance(
+                "token " + token
+        );
+    }
+
 }
