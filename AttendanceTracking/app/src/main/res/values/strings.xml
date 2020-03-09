@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">AttendanceTracking</string>
+    <string name="app_name">AttendanceTracking - CiTeSoft</string>
     <string name="action_settings">Settings</string>
     <string name="action_profile">Perfil</string>
     <string name="section_format">Hello World from section: %1$d</string>
@@ -11,7 +11,7 @@
     <string name="cancel_button_text">Cancelar</string>
     <string name="location_disabled">Localización en modo alta precisión no activado</string>
     <string name="location_settings">Abrir ajustes de localización</string>
-    <string name="location_not_granted">Ya que el permiso de localización no ha sido concedido,</string>
+    <string name="location_not_granted">Ya que el permiso de localización no ha sido concedido.</string>
     <string name="cannot_discover_beacons">esta aplicación no podrá buscar beacons</string>
     <string name="funcionality_limited">Funcionalidad limitada</string>
     <string name="no_bluetooth_msg">Con el bluetooth desactivado no es posible buscar beacons</string>
@@ -47,4 +47,5 @@
     <string name="close">Close</string>
     <string name="attendance_closed">Attendance Closed</string>
     <string name="logout">Log Out</string>
+    <string name="searching_beacons">Searching Beacons</string>
 </resources>

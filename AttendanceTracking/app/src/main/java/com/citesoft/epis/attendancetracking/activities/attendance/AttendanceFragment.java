@@ -338,7 +338,7 @@ public class AttendanceFragment extends Fragment  implements BeaconConsumer, Ran
     @Override
     public void didRangeBeaconsInRegion(Collection<Beacon> collection, Region region) {
         if (collection.size() == 0) {
-            ShowToast.show(this.getActivity(), R.string.no_beacons_detected);
+            ShowToast.show(this.getActivity(), R.string.searching_beacons);
         } else {
             stopDetectionBeacons();
 

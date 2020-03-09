@@ -1,5 +1,6 @@
 package com.citesoft.epis.attendancetracking.services.app.services;
 
+import android.annotation.SuppressLint;
 import android.app.NotificationManager;
 import android.app.Service;
 import android.content.Context;
@@ -7,12 +8,15 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
 
 import com.citesoft.epis.attendancetracking.BroadcastRecievers.BroadcastRecieverProgramNotitication;
-import com.citesoft.epis.attendancetracking.MainActivity;
 import com.citesoft.epis.attendancetracking.R;
-import com.citesoft.epis.attendancetracking.activities.attendance.AttendanceFragment;
+import com.citesoft.epis.attendancetracking.activities.attendance.AttendanceAdapter;
 import com.citesoft.epis.attendancetracking.models.Attendance;
 import com.citesoft.epis.attendancetracking.notifications.CloseNotification;
 import com.citesoft.epis.attendancetracking.services.attendanceTracking.AttendanceTrackingRetrofit;
@@ -30,6 +34,12 @@ public class CloseAttendanceService extends Service {
     private AttendanceTrackingRetrofit retrofit;
     private BroadcastRecieverProgramNotitication notitication;
     private String token;
+
+
+    private AttendanceAdapter closedAttendanceAdapter;
+    private RecyclerView recyclerViewClosedAttendance;
+    private AttendanceAdapter openAttendanceAdapter;
+    private RecyclerView recyclerViewOpenAttendance;
 
     @Nullable
     @Override
@@ -71,6 +81,7 @@ public class CloseAttendanceService extends Service {
                                 if (response.isSuccessful()){
                                     ShowToast.show(getApplicationContext(), R.string.attendance_closed);
                                     cancelServices();
+                                 //   updateAttendances();
 
 
 
@@ -123,6 +134,75 @@ public class CloseAttendanceService extends Service {
         getApplicationContext().stopService(service1);
         Intent service = new Intent(getApplicationContext(), CloseAttendanceService.class);
         getApplicationContext().stopService(service);
+
+    }
+
+    @SuppressLint("ResourceType")
+    private void updateAttendances (){
+        LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
+        View layout = inflater.inflate(R.layout.fragment_attendance, null);
+        this.closedAttendanceAdapter = new AttendanceAdapter(R.layout.list_attendance_item);
+        this.recyclerViewClosedAttendance = (RecyclerView) layout.findViewById(R.id.attendance_close); //inflater.inflate(R.id.attendance_close, null);  // this.getActivity().findViewById(R.id.attendance_close);
+        this.recyclerViewClosedAttendance.setHasFixedSize(true);
+        LinearLayoutManager linearLayout = new LinearLayoutManager(this);
+        linearLayout.setReverseLayout(true);
+        linearLayout.setStackFromEnd(true);
+        this.recyclerViewClosedAttendance.setLayoutManager(linearLayout);
+        this.recyclerViewClosedAttendance.setAdapter(closedAttendanceAdapter);
+
+        this.openAttendanceAdapter = new AttendanceAdapter(R.layout.list_attendance_item_open);
+        this.recyclerViewOpenAttendance = (RecyclerView)  layout.findViewById(R.id.attendance_open);//inflater.inflate(R.id.attendance_open, null); //this.getActivity().findViewById(R.id.attendance_open);
+
+        this.recyclerViewOpenAttendance.setHasFixedSize(true);
+        this.recyclerViewOpenAttendance.setLayoutManager(new LinearLayoutManager(this));
+        this.recyclerViewOpenAttendance.setAdapter(openAttendanceAdapter);
+        this.retrofit.getClosedAttendance().enqueue(new Callback<ArrayList<Attendance>>() {
+            @Override
+            public void onResponse(Call<ArrayList<Attendance>> call, Response<ArrayList<Attendance>> response) {
+                if (response.isSuccessful()){
+
+                    ArrayList<Attendance> attendances = response.body();
+                    closedAttendanceAdapter.makeEmpty();
+                    closedAttendanceAdapter.addAttendances(attendances);
+
+                } else {
+                    try {
+                        ShowToast.show(getApplicationContext(), response.errorBody().string());
+                    } catch (IOException e) {
+                        ShowToast.show(getApplicationContext(), e.getMessage());
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ArrayList<Attendance>> call, Throwable t) {
+                ShowToast.show(getApplicationContext(), t.getMessage());            }
+        });
+
+
+        this.retrofit.getOpenAttendance().enqueue(new Callback<ArrayList<Attendance>>() {
+            @Override
+            public void onResponse(Call<ArrayList<Attendance>> call, Response<ArrayList<Attendance>> response) {
+                if (response.isSuccessful()){
+
+                    ArrayList<Attendance> attendances = response.body();
+
+                    openAttendanceAdapter.makeEmpty();
+                    openAttendanceAdapter.addAttendances(attendances);
+
+                } else {
+                    try {
+                        ShowToast.show(getApplicationContext(), response.errorBody().string());
+                    } catch (IOException e) {
+                        ShowToast.show(getApplicationContext(), e.getMessage());
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ArrayList<Attendance>> call, Throwable t) {
+                ShowToast.show(getApplicationContext(), t.getMessage());            }
+        });
 
     }
 }
