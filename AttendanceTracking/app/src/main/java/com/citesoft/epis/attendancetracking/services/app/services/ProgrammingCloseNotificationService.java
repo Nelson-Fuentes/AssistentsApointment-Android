@@ -36,7 +36,7 @@ public class ProgrammingCloseNotificationService extends Service {
         Intent intent = new Intent(this, MainActivity.class);
         PendingIntent pIntent = PendingIntent.getActivity(this, 0, intent, 0);
         AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        long updateInterval = /*AlarmManager.INTERVAL_HOUR*8;*/AlarmManager.INTERVAL_FIFTEEN_MINUTES/5;
+        long updateInterval = AlarmManager.INTERVAL_HOUR*8;//AlarmManager.INTERVAL_FIFTEEN_MINUTES/5;
 
         am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + updateInterval, updateInterval, pendingIntent);
     }
